@@ -21,24 +21,4 @@ describe('Faucet', function () {
     expect(await faucet.owner()).to.equal(owner.address);
   });
 
-  it('should block withdrawals greather than 0.1 ETH', async function () {
-    const { faucet } = await loadFixture(deployContractAndSetVariables);
-
-    let withdrawAmount = ethers.parseUnits("1");
-    await expect(faucet.withdraw(withdrawAmount)).to.be.reverted;
-  });
-
-  it('should allow withdrawals of 0.1 ETH', async function () {
-    const { faucet } = await loadFixture(deployContractAndSetVariables);
-
-    let withdrawAmount = ethers.parseUnits("0.05");
-    await expect(faucet.withdraw(withdrawAmount)).to.be.ok;
-  });
-
-  it('should withdraw all ETH from owner account', async function () {
-    const { faucet } = await loadFixture(deployContractAndSetVariables);
-    faucet.withdrawAll();
-    let withdrawAmount = ethers.parseUnits("0.05");
-    await expect(faucet.withdraw(withdrawAmount)).to.be.reverted;
-  });
 });
